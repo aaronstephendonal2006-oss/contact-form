@@ -1,0 +1,556 @@
+/* ============================================================
+   CONTACT FORM — STYLES
+   Modern glassmorphism design with animations & responsiveness
+   ============================================================ */
+
+/* ---------------------------
+   CSS Custom Properties
+   --------------------------- */
+:root {
+  /* Color palette */
+  --clr-bg-start: #0f0c29;
+  --clr-bg-mid: #302b63;
+  --clr-bg-end: #24243e;
+  --clr-glass-bg: rgba(255, 255, 255, 0.06);
+  --clr-glass-border: rgba(255, 255, 255, 0.12);
+  --clr-glass-hover: rgba(255, 255, 255, 0.10);
+  --clr-text: #f0eef6;
+  --clr-text-muted: #a8a4b8;
+  --clr-accent: #7c5cfc;
+  --clr-accent-light: #a78bfa;
+  --clr-accent-glow: rgba(124, 92, 252, 0.35);
+  --clr-error: #f87171;
+  --clr-error-bg: rgba(248, 113, 113, 0.08);
+  --clr-success: #34d399;
+  --clr-success-bg: rgba(52, 211, 153, 0.10);
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ---------------------------
+   Base Reset & Globals
+   --------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--clr-text);
+  background: linear-gradient(135deg, var(--clr-bg-start), var(--clr-bg-mid), var(--clr-bg-end));
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------
+   Animated Background Canvas
+   --------------------------- */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------------------------
+   Main Layout — Flexbox Center
+   --------------------------- */
+.main-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-xl);
+}
+
+/* ---------------------------
+   Glassmorphism Card
+   --------------------------- */
+.form-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--clr-glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: cardFadeIn 0.8s ease both;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------------------------
+   Form Header
+   --------------------------- */
+.form-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.form-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-light));
+  color: #fff;
+  margin-bottom: var(--space-md);
+  box-shadow: 0 4px 20px var(--clr-accent-glow);
+}
+
+.form-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xs);
+  background: linear-gradient(135deg, #fff, var(--clr-accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ---------------------------
+   Form Groups (CSS Grid)
+   --------------------------- */
+#contact-form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* ---------------------------
+   Labels
+   --------------------------- */
+label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------
+   Input Wrapper & Icons
+   --------------------------- */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--clr-text-muted);
+  transition: color var(--transition-fast);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.textarea-icon {
+  top: 14px;
+  align-self: flex-start;
+}
+
+/* ---------------------------
+   Inputs & Textarea
+   --------------------------- */
+input,
+textarea {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  font-family: var(--font-family);
+  font-size: 0.9375rem;
+  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* Focus state */
+input:focus,
+textarea:focus {
+  border-color: var(--clr-accent);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px var(--clr-accent-glow);
+}
+
+.input-wrapper:focus-within .input-icon {
+  color: var(--clr-accent-light);
+}
+
+/* Error state */
+.form-group.has-error input,
+.form-group.has-error textarea {
+  border-color: var(--clr-error);
+  background: var(--clr-error-bg);
+  animation: inputShake 0.4s ease;
+}
+
+.form-group.has-error .input-icon {
+  color: var(--clr-error);
+}
+
+/* Success state on individual fields */
+.form-group.is-valid input,
+.form-group.is-valid textarea {
+  border-color: var(--clr-success);
+}
+
+.form-group.is-valid .input-icon {
+  color: var(--clr-success);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ---------------------------
+   Error Messages
+   --------------------------- */
+.error-message {
+  font-size: 0.75rem;
+  color: var(--clr-error);
+  min-height: 1rem;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.error-message:not(:empty) {
+  animation: errorSlideIn 0.3s ease both;
+}
+
+@keyframes errorSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes inputShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* ---------------------------
+   Submit Button
+   --------------------------- */
+.submit-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 16px 24px;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-light));
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+  box-shadow: 0 4px 20px var(--clr-accent-glow);
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--clr-accent-glow);
+}
+
+.submit-btn:hover::before {
+  opacity: 1;
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px var(--clr-accent-glow);
+}
+
+.submit-btn:focus-visible {
+  outline: 2px solid var(--clr-accent-light);
+  outline-offset: 3px;
+}
+
+/* Button arrow icon */
+.btn-arrow {
+  transition: transform var(--transition-fast);
+}
+
+.submit-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Button loading state */
+.submit-btn.loading .btn-text,
+.submit-btn.loading .btn-arrow {
+  opacity: 0;
+}
+
+.btn-loader {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: none;
+}
+
+.submit-btn.loading .btn-loader {
+  opacity: 1;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------------------
+   Success Message
+   --------------------------- */
+.success-message {
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+.success-message:not([hidden]) {
+  animation: successFadeIn 0.6s ease both;
+}
+
+.success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--clr-success-bg);
+  color: var(--clr-success);
+  margin-bottom: var(--space-lg);
+  animation: successPulse 2s ease infinite;
+}
+
+.success-message h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--clr-success);
+}
+
+.success-message p {
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+  margin-bottom: var(--space-xl);
+  line-height: 1.5;
+}
+
+@keyframes successFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes successPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.25); }
+  50% { box-shadow: 0 0 0 14px rgba(52, 211, 153, 0); }
+}
+
+/* Send Another button */
+.send-another-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  background: var(--clr-glass-bg);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.send-another-btn:hover {
+  background: var(--clr-glass-hover);
+  border-color: var(--clr-accent);
+  transform: translateY(-1px);
+}
+
+.send-another-btn:focus-visible {
+  outline: 2px solid var(--clr-accent-light);
+  outline-offset: 3px;
+}
+
+/* ---------------------------
+   Responsive — Tablet & Below
+   --------------------------- */
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding: var(--space-lg);
+  }
+
+  .form-card {
+    padding: var(--space-xl) var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .form-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ---------------------------
+   Responsive — Mobile
+   --------------------------- */
+@media (max-width: 480px) {
+  .main-wrapper {
+    padding: var(--space-md);
+    align-items: flex-start;
+    padding-top: var(--space-xl);
+  }
+
+  .form-card {
+    padding: var(--space-lg) var(--space-md);
+    border-radius: var(--radius-md);
+  }
+
+  .form-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .subtitle {
+    font-size: 0.8125rem;
+  }
+
+  input,
+  textarea {
+    font-size: 1rem; /* Prevents iOS zoom */
+    padding: 12px 14px 12px 40px;
+  }
+
+  .submit-btn {
+    padding: 14px 20px;
+  }
+}
+
+/* ---------------------------
+   Reduced Motion Preference
+   --------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
